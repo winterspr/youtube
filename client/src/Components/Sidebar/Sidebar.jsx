@@ -69,7 +69,7 @@ const Sidebar = ({sidebar, category, setCategory}) => {
         ) : (
             <div className='yourchannel'>
                 <div className="your_channel">
-                    <p>Your</p>
+                    <p>Yours</p>
                     <ArrowForwardIosIcon/>
                 </div>
                 <div className="yourchannel-icon">

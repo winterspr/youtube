@@ -11,7 +11,16 @@ export const signup = async(req, res, next)=>{
         const newUser = new User({...req.body, password: hash})
 
         await newUser.save();
-        res.status(200).send("User has been created!");
+        const token = jwt.sign({ id: newUser._id }, process.env.JWT);
+        const { password, ...others } = newUser._doc;
+        
+        res
+          .cookie("access_token", token, {
+            httpOnly: true,
+            //maxAge: 1000 * 60 * 60 * 24 * 365,
+          })
+          .status(200)
+          .json(others);
     } catch(err){
         next(err)
     }
@@ -27,11 +36,12 @@ export const signin = async (req, res, next) => {
       if (!isCorrect) return next(createError(400, "Wrong Credentials!"));
   
       const token = jwt.sign({ id: user._id }, process.env.JWT);
+      console.log('token', token);
       const { password, ...others } = user._doc;
-  
-      res
-        .cookie("access_token", token, {
-          httpOnly: true,
+      res.cookie("access_token", token, {
+          httpOnly: false,
+          secure: true,
+          //maxAge: 1000 * 60 * 60 * 24 * 365,
         })
         .status(200)
         .json(others);
@@ -40,14 +50,23 @@ export const signin = async (req, res, next) => {
     }
   };
 
+  export const logout = (req, res) => {
+    res.clearCookie("access_token", {
+      httpOnly: true,
+    });
+    res.status(200).json("User has been logged out");
+  };
+
   export const googleAuth = async (req, res, next) => {
     try {
       const user = await User.findOne({ email: req.body.email });
       if (user) {
         const token = jwt.sign({ id: user._id }, process.env.JWT);
+        console.log('token', token);
         res
           .cookie("access_token", token, {
-            httpOnly: true,
+            httpOnly: false,
+            secure: true,
           })
           .status(200)
           .json(user._doc);

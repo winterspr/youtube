@@ -4,11 +4,13 @@ import Sidebar from '../../Components/Sidebar/Sidebar.jsx'
 import Feedc from "../../Components/Feed_Channel/Feedc.jsx"
 import { useParams } from 'react-router-dom'
 const Channel = ({sidebar}) => {
-    const [category, setCategory] = useState([]);
-    const {channelId} = useParams();
+    //const [category, setCategory] = useState([]);
+    
+    const {channelId, category} = useParams();
+    console.log('category', category);
     return (
         <>
-          <Sidebar sidebar={sidebar} category={category} setCategory={setCategory}></Sidebar>
+          <Sidebar sidebar={sidebar} category={category} setCategory={category}></Sidebar>
           
           <div className={`container ${sidebar?"":"large-container"}`}>
             <Feedc channelId={channelId}/>

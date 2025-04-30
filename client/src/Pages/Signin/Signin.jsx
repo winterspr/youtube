@@ -37,6 +37,23 @@ const Signin = () => {
         }
     }
 
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        dispatch(loginStart());
+        try {
+            const res = await axios.post("api/auth/signup", {
+                name,
+                email,
+                password
+            });
+            dispatch(loginSuccess(res.data));
+            navigate("/")
+        } catch (err) {
+            dispatch(loginFailure());
+        }
+    }
+      
+
     const signInWithGoogle = async()=>{
         dispatch(loginStart());
         signInWithPopup(auth, provider)
@@ -48,7 +65,7 @@ const Signin = () => {
                     img: result.user.photoURL,
                 })
                 .then((res)=>{
-                    console.log(res);
+                    console.log('res', res);
                     dispatch(loginSuccess(res.data));
                     navigate("/")
                 });
@@ -73,7 +90,7 @@ const Signin = () => {
                             <input name='username'  type="text" placeholder="Name" onChange={(e)=> setName(e.target.value)}/>
                             <input name="email"  type="email" placeholder="Email" onChange={(e)=> setEmail(e.target.value)}/>
                             <input name="password"  type="password" placeholder="Password" onChange={(e)=> setPassword(e.target.value)}/>
-                            <button>Sign Up </button>
+                            <button onClick={handleRegister}>Sign Up </button>
                         </form>
                     </div>
 

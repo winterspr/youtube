@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const videoSchema = new mongoose.Schema({ 
-  _id: { type: String, required: true, unique: true},// ID của video từ YouTube, để tránh trùng lặp
+  _id: { type: String, required: true, unique: true},
   title: { type: String, required: true },
   description: { type: String, default: '' },
   channelTitle: { type: String, required: true },
@@ -33,6 +33,7 @@ const videoSchema = new mongoose.Schema({
     type: [String],
     default: [],
   },
+  duration: { type: Number, default: 0 },
   userId: {
     type: String,
     required: true,

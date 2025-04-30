@@ -17,7 +17,7 @@ export const update = async(req, res ,next)=>{
           new: true,
         }
       );
-      req.status(200).json(updateUser)
+      res.status(200).json(updateUser)
     } catch(err){
       next(err)
     }
@@ -83,10 +83,15 @@ export const unSubscribe = async(req, res, next)=>{
     const id = req.user.id
     const videoId = req.params.videoId
     try{
-      await Video.findByIdAndUpdate(videoId, {
+      await Video.findByIdAndUpdate(videoId, 
+      {
         $addToSet: {likes: id}, //$addToSet để đảm bảo chi like một lần
         $pull: {dislikes: id},
-      })
+      },
+      {
+        new: true,
+      }
+    )
       res.status(200).json("The video has been Liked")
     } catch(err){
       next(err)
