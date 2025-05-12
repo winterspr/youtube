@@ -7,7 +7,6 @@ const Channel = ({sidebar}) => {
     //const [category, setCategory] = useState([]);
     
     const {channelId, category} = useParams();
-    console.log('category', category);
     return (
         <>
           <Sidebar sidebar={sidebar} category={category} setCategory={category}></Sidebar>

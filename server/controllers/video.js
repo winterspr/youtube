@@ -83,8 +83,6 @@ export const deleteVideo = async(req, res, next)=>{
 export const getVideo = async(req, res, next)=>{
     try{
         const video = await Video.findById(req.params.id);
-        console.log('id', req.params.id);
-        console.log('video', video);
         if(!video) { return next(createError(403, "can't find video"))};
         return res.status(200).json(video);
     } catch(err){
@@ -203,4 +201,19 @@ export const updateWatchTime = async (req, res, next) => {
     } catch (err) {
       next(err);
     }
-  };
+};
+
+export const recommendVideo = async (req, res, next) => {
+  try {
+    // const { userId } = req.params;
+    const { id: userId } = req.currentUser;
+
+    const response = await axios.post("http://localhost:5000/recommend", {
+      user_id: userId,
+      k: 10,
+    });
+    res.json(response.data);
+  } catch (err) {
+    next(err);
+  }
+};

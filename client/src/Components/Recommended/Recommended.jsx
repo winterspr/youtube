@@ -17,6 +17,31 @@ const Recommended = ({categoryId}) => {
     useEffect(()=>{
         fetchData()
     }, [categoryId])
+
+  //  const fetchData = async () => {
+  //   try {
+  //     const response = await axios.get('/recommend', {
+  //       params: { user_id: currentUser._id, k: 30 }  // Gọi API với user_id và k = 5 video gợi ý
+  //     });
+
+  //     // Kiểm tra dữ liệu trả về có phải là mảng không
+  //     if (Array.isArray(response.data)) {
+  //       setApiData(response.data);  // Lưu mảng kết quả vào state
+  //     } else {
+  //       console.error('Dữ liệu trả về không phải là mảng:', response.data);
+  //       alert('Lỗi: Dữ liệu không phải là mảng.');
+  //     }
+  //   } catch (error) {
+  //     console.error('Lỗi khi gọi API gợi ý:', error.response ? error.response.data : error.message);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if (currentUser) {
+  //     fetchData();
+  //   }
+  // }, [currentUser]);
+        
     const handleVideoClick = (videoId) => {
         setApiData(prevData => prevData.filter(video => video.id !== videoId));
         navigate(`/video/${categoryId}/${videoId}`);
@@ -62,41 +87,6 @@ const Recommended = ({categoryId}) => {
         }
     }
 
-    // const saveWatchhistory = async(item)=>{
-    //     try{
-    //         const historyData = {
-    //             videoId: item.id,
-    //             userId: currentUser._id,
-    //             title: item.snippet.title,
-    //             channelTitle: item.snippet.channelTitle,
-    //             publishedAt: item.snippet.publishedAt,
-    //             thumbnails:{
-    //                 default: {
-    //                     url: item.snippet.thumbnails.default?.url || '',
-    //                     width: item.snippet.thumbnails.default?.width || 120,
-    //                     height: item.snippet.thumbnails.default?.height || 90
-    //                 },
-    //                 medium: {
-    //                     url: item.snippet.thumbnails.medium?.url || '',
-    //                     width: item.snippet.thumbnails.medium?.width || 320,
-    //                     height: item.snippet.thumbnails.medium?.height || 180
-    //                 },
-    //                 high: {
-    //                     url: item.snippet.thumbnails.high?.url || '',
-    //                     width: item.snippet.thumbnails.high?.width || 480,
-    //                     height: item.snippet.thumbnails.high?.height || 360
-    //                 }
-    //             }
-    //         };
-    //         const response = await axios.post('/api/history/add', historyData);
-    //         if(response.status == 201){
-    //             console.log('lich su da duoc luu thanh cong');
-    //         }
-    //     } catch(err){
-    //         console.error('Lỗi khi lưu lịch sử xem:', err.response ? err.response.data : err.message);
-    //     }
-    // }
-
     return (
         <div className="recommended">
             {apiData.map((item, index) => {
@@ -124,6 +114,28 @@ const Recommended = ({categoryId}) => {
             })}
         </div>
     );
+    // return (
+    //     <div className="recommended">
+    //         {apiData.length > 0 ? (
+    //     apiData.map((item, index) => (
+    //       <div
+    //         key={index}
+    //         className="side-video-list"
+    //         onClick={() => handleVideoClick(item.video_id)}
+    //       >
+    //         <img src={`https://img.youtube.com/vi/${item.video_id}/mqdefault.jpg`} alt={item.title} />
+    //         <div className="vid-info">
+    //           <h4>{item.title}</h4>
+    //           <p>{`Score: ${item.score.toFixed(2)}`}</p>
+    //         </div>
+    //       </div>
+    //     ))
+    //   ) : (
+    //     <p>Không có video gợi ý.</p>
+    //   )}
+    //     </div>
+    // );
+    
 }
 
 export default Recommended

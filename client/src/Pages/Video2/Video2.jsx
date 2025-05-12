@@ -5,7 +5,6 @@ import Recommended2 from '../../Components/Recommended2/Recommended2.jsx'
 import { useParams } from 'react-router-dom'
 const Video2 = () => {
   const {videoId, categoryId} = useParams();
-  console.log('category4', categoryId);
   return (
     <div className='play-container'>
       <PlayVideo videoId={videoId}/>
