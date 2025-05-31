@@ -23,7 +23,8 @@ const UserSchema = new mongoose.Schema(
       default: 0,
     },
     subscribedUsers: {
-      type: [String],
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "User",
     },
     fromGoogle: {
       type: Boolean,

@@ -9,6 +9,8 @@ import { darkTheme, lightTheme } from './utils/Theme.js';
 import Signin from './Pages/Signin/Signin.jsx';
 import Channel from './Pages/Channel/Channel.jsx';
 import Video2 from './Pages/Video2/Video2.jsx';
+import ProfileSettings from './Components/Profile_Setting/ProfileSetting.jsx';
+import UploadVideo from './Components/Upload_Video/Upload_Video.jsx';
 
 function App(){
   const [sidebar, setSideBar] = useState(true);
@@ -23,6 +25,8 @@ function App(){
             <Route path='/video/:videoId' element={<Video2/>}/>
             <Route path='/signin' element={<Signin/>}/>
             <Route path='/channel/:channelId' element={<Channel/>}></Route>
+            <Route path='/profile/settings' element={<ProfileSettings/>}/>
+            <Route path="/upload-video" element={<UploadVideo />} />
           </Routes>
       </BrowserRouter>
     </ThemeProvider>

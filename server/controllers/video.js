@@ -90,6 +90,15 @@ export const getVideo = async(req, res, next)=>{
     }
 }
 
+export const getMyVideos = async (req, res, next) => {
+  try {
+    const videos = await Video.find({ userId: req.user.id }).sort({ createdAt: -1 });
+    res.status(200).json(videos);
+  } catch (err) {
+    next(err);
+  }
+};
+
 
 //add view
 export const addView = async(req, res, next)=>{
@@ -215,5 +224,61 @@ export const recommendVideo = async (req, res, next) => {
     res.json(response.data);
   } catch (err) {
     next(err);
+  }
+};
+
+// Like video
+export const likeVideo = async (req, res) => {
+  const userId = req.user.id;  // userId lấy từ token (verifyToken middleware)
+  const videoId = req.params.id;
+
+  try {
+    const video = await Video.findById(videoId);
+    if (!video) return res.status(404).json("Video not found!");
+
+    // Nếu user dislike trước đó, bỏ dislike
+    if (video.dislikes.includes(userId)) {
+      video.dislikes = video.dislikes.filter(id => id !== userId);
+    }
+
+    // Nếu user đã like thì bỏ like (toggle)
+    if (video.likes.includes(userId)) {
+      video.likes = video.likes.filter(id => id !== userId);
+    } else {
+      video.likes.push(userId);
+    }
+
+    await video.save();
+    res.status(200).json(video);
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
+};
+
+// Dislike video
+export const dislikeVideo = async (req, res) => {
+  const userId = req.user.id;
+  const videoId = req.params.id;
+
+  try {
+    const video = await Video.findById(videoId);
+    if (!video) return res.status(404).json("Video not found!");
+
+    // Nếu user like trước đó, bỏ like
+    if (video.likes.includes(userId)) {
+      video.likes = video.likes.filter(id => id !== userId);
+    }
+
+    // Nếu user đã dislike thì bỏ dislike (toggle)
+    if (video.dislikes.includes(userId)) {
+      video.dislikes = video.dislikes.filter(id => id !== userId);
+    } else {
+      video.dislikes.push(userId);
+    }
+
+    await video.save();
+    res.status(200).json(video);
+  } catch (err) {
+    res.status(500).json(err.message);
   }
 };

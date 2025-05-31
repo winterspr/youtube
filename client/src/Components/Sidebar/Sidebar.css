@@ -1,4 +1,4 @@
-.sidebar{
+/* .sidebar{
     background-color: #fff;
     width: 15%;
     height: 100vh;
@@ -130,4 +130,220 @@
     .sidebar{
         display: none;
     }
+} */
+
+/* Sidebar chính */
+.sidebar {
+  background-color: #fff;
+  width: 15%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-left: 2%;
+  padding-top: 80px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
+
+/* Scrollbar đẹp */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+}
+
+/* Các link shortcut */
+.shortcut-links img {
+  width: 20px;
+  margin-right: 20px;
+}
+
+.side-link {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+  padding: 7.5px 0;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.side-link:hover,
+.your_channel:hover,
+.yourchannel-icon:hover,
+.setting-icon:hover {
+  background-color: #e4e7ed;
+}
+
+.user p {
+  font-size: 14px;
+  margin: 0 20px;
+}
+
+.user-signin {
+  padding: 5px 15px;
+  width: fit-content;
+  background-color: transparent;
+  border: 1px solid #3ea6ff;
+  color: #3ea6ff;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  gap: 5px;
+  display: flex;
+  margin: 20px;
+  align-items: center;
+}
+
+.user-signin p {
+  font-size: 14px;
+}
+
+/* Cài đặt (setting) */
+.setting-icon {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+  padding: 7.5px 0;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+/* Đường kẻ phân chia */
+.sidebar hr {
+  border: 0;
+  height: 1px;
+  background-color: #ccc;
+  width: 85%;
+  margin: 15px 0;
+}
+
+/* Subscribed list nếu có */
+.subscribed-list h3 {
+  font-size: 13px;
+  margin: 20px 0;
+  color: #5a5a5a;
+}
+
+.subscribed-list img {
+  width: 25px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+/* Phần channel của người dùng */
+.yourchannel-icon {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+  padding: 7.5px 0;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.your_channel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7.5px 0;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+}
+
+.small-sidebar {
+  width: 80px; /* hoặc 70px */
+  padding-left: 0;
+  align-items: center;
+}
+
+.small-sidebar p,
+.small-sidebar h3 {
+  display: none;
+}
+
+.small-sidebar hr {
+  width: 50%;
+  margin: 25px 0;
+}
+
+.small-sidebar .side-link,
+.small-sidebar .yourchannel-icon,
+.small-sidebar .setting-icon {
+  justify-content: center;
+  gap: 0;
+  padding: 10px 0;
+}
+
+.small-sidebar .side-link img,
+.small-sidebar .yourchannel-icon svg,
+.small-sidebar .setting-icon svg {
+  margin-right: 0;
+}
+
+
+/* Responsive: Thu nhỏ sidebar khi màn hình <= 900px */
+@media (max-width: 900px) {
+  .sidebar {
+    /* width: 5%;
+    padding-left: 0;
+    align-items: center; */
+    display: none;
+  }
+
+  /* Ẩn tất cả text, chỉ giữ icon */
+  .sidebar p,
+  .sidebar h3 {
+    display: none;
+  }
+
+  /* Đường kẻ nhỏ lại và căn giữa */
+  .sidebar hr {
+    width: 50%;
+    margin: 25px 0;
+  }
+
+  /* Căn chỉnh các item trong sidebar */
+  .side-link,
+  .yourchannel-icon,
+  .setting-icon {
+    justify-content: center;
+    gap: 0;
+    padding: 10px 0;
+  }
+
+  /* Ẩn margin-right của icon (ảnh hoặc svg) */
+  .side-link img,
+  .yourchannel-icon svg,
+  .setting-icon svg {
+    margin-right: 0;
+  }
+
+  /* Chỉnh kích thước icon ảnh */
+  .shortcut-links img {
+    width: 24px;
+  }
+
+  /* Căn giữa user sign-in */
+  .user-signin {
+    margin: 10px 0;
+    padding: 8px;
+    width: auto;
+  }
+}
+
+

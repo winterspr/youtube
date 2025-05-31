@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
 const videoSchema = new mongoose.Schema({ 
-  _id: { type: String, required: true, unique: true},
+  _id: { type: String, unique: true},
   title: { type: String, required: true },
   description: { type: String, default: '' },
-  channelTitle: { type: String, required: true },
+  channelTitle: { type: String },
   thumbnails: {
     default: {
       url: { type: String, default: '' },
@@ -22,7 +22,7 @@ const videoSchema = new mongoose.Schema({
       height: { type: Number, default: 360 }
     }
   },
-  publishedAt: { type: Date, required: true },
+  publishedAt: { type: Date },
   viewCount: { type: Number, default: 0 },
   likeCount: { type: Number, default: 0 },
   likes: {
@@ -36,8 +36,9 @@ const videoSchema = new mongoose.Schema({
   duration: { type: Number, default: 0 },
   userId: {
     type: String,
-    required: true,
   },
+  videoUrl: {type: String},
+  tags: {type: [String]}
 },
 { timestamps: true }
 );
